@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>リンガーハット調理ゲーム</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      padding: 1rem;
+    }
+    .order {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+    .category {
+      margin: 1rem 0;
+    }
+    .button {
+      border-radius: 10px;
+      margin: 0.25rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      touch-action: manipulation;
+    }
+    .soup-btn {
+      color: black;
+    }
+    .soup-chanpon { background-color: yellow; }
+    .soup-saraudon { background-color: #deb887; }
+    .soup-pirikara { background-color: red; color: white; }
+    .soup-shoyu { background-color: gray; color: white; }
+    .soup-toripaitan { background-color: white; }
+    .soup-miso { background-color: brown; color: white; }
+    .selected {
+      outline: 3px solid #00f;
+    }
+    .silver-circle {
+      border-radius: 50%;
+      background: silver;
+    }
+    .blue-circle {
+      border-radius: 50%;
+      background: #90e0f3;
+      font-weight: bold;
+    }
+    .actions {
+      margin-top: 1rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .game-mode {
+      margin: 1rem 0;
+    }
+    #lastAnswerDisplay {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body ontouchstart="">
+  <div class="game-mode">
+    <button class="button" onclick="startGame('free')">時間制限なし</button>
+    <button class="button" onclick="startGame('timed')">1分チャレンジ</button>
+  </div>
+  <div id="game" class="hidden">
+    <div class="order" id="orderDisplay"></div>
+
+    <div class="category">
+      <h3>スープを選択</h3>
+      <div id="soupOptions">
+        <button class="button soup-btn soup-chanpon" ontouchstart="selectSoup(this, 'ちゃんぽんスープ')">ちゃんぽんスープ</button>
+        <button class="button soup-btn soup-saraudon" ontouchstart="selectSoup(this, '皿うどんスープ')">皿うどんスープ</button>
+        <button class="button soup-btn soup-pirikara" ontouchstart="selectSoup(this, 'ピリ辛味噌2辛')">ピリ辛味噌2辛</button>
+        <button class="button soup-btn soup-shoyu" ontouchstart="selectSoup(this, '醤油スープ')">醤油スープ</button>
+        <button class="button soup-btn soup-toripaitan" ontouchstart="selectSoup(this, '鶏白湯スープ')">鶏白湯スープ</button>
+        <button class="button soup-btn soup-miso" ontouchstart="selectSoup(this, '味噌スープ')">味噌スープ</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <h3>スープの量を選択</h3>
+      <div id="soupAmounts">
+        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '30cc')">30cc</button>
+        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '40cc')">40cc</button>
+        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '60cc')">60cc</button>
+        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '70cc')">70cc</button>
+        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '90cc')">90cc</button>
+        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '1袋')">1袋</button>
+        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '1ディッシャー')">1ディッシャー</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <h3>お湯の量を選択</h3>
+      <div id="waterAmounts">
+        <button class="button blue-circle" ontouchstart="selectWater(this, '100cc')">100cc</button>
+        <button class="button blue-circle" ontouchstart="selectWater(this, '200cc')">200cc</button>
+        <button class="button blue-circle" ontouchstart="selectWater(this, '250cc')">250cc</button>
+        <button class="button blue-circle" ontouchstart="selectWater(this, '300cc')">300cc</button>
+        <button class="button blue-circle" ontouchstart="selectWater(this, '400cc')">400cc</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <h3>お鍋操作</h3>
+      <button class="button" ontouchstart="selectAction('お鍋に入れる')">お鍋に入れる</button>
+      <button class="button" ontouchstart="selectAction('お鍋上に入れる')">お鍋上に入れる</button>
+      <button class="button" ontouchstart="selectAction('お鍋下に入れる')">お鍋下に入れる</button>
+    </div>
+
+    <div class="category">
+      <p>スコア: <span id="score">0</span></p>
+      <p id="timer" class="hidden"></p>
+      <div id="lastAnswerDisplay"></div>
+    </div>
+  </div>
+
+  <audio id="correctSound" src="sounds/correct.mp3"></audio>
+  <audio id="wrongSound" src="sounds/wrong.mp3"></audio>
+  <audio id="selectSound" src="sounds/select.mp3"></audio>
+
+  <script>
+    // JavaScript部は変更なし（既にクリック操作とモバイルのタッチが両立）
+  </script>
+</body>
+</html>

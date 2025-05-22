@@ -26,7 +26,6 @@
       cursor: pointer;
       border: 1px solid #ccc;
       font-size: 1rem;
-      touch-action: manipulation;
     }
     .soup-btn {
       color: black;
@@ -65,7 +64,7 @@
     }
   </style>
 </head>
-<body ontouchstart="">
+<body>
   <div class="game-mode">
     <button class="button" onclick="startGame('free')">時間制限なし</button>
     <button class="button" onclick="startGame('timed')">1分チャレンジ</button>
@@ -76,44 +75,44 @@
     <div class="category">
       <h3>スープを選択</h3>
       <div id="soupOptions">
-        <button class="button soup-btn soup-chanpon" ontouchstart="selectSoup(this, 'ちゃんぽんスープ')">ちゃんぽんスープ</button>
-        <button class="button soup-btn soup-saraudon" ontouchstart="selectSoup(this, '皿うどんスープ')">皿うどんスープ</button>
-        <button class="button soup-btn soup-pirikara" ontouchstart="selectSoup(this, 'ピリ辛味噌2辛')">ピリ辛味噌2辛</button>
-        <button class="button soup-btn soup-shoyu" ontouchstart="selectSoup(this, '醤油スープ')">醤油スープ</button>
-        <button class="button soup-btn soup-toripaitan" ontouchstart="selectSoup(this, '鶏白湯スープ')">鶏白湯スープ</button>
-        <button class="button soup-btn soup-miso" ontouchstart="selectSoup(this, '味噌スープ')">味噌スープ</button>
+        <button class="button soup-btn soup-chanpon" onclick="selectSoup(this, 'ちゃんぽんスープ')">ちゃんぽんスープ</button>
+        <button class="button soup-btn soup-saraudon" onclick="selectSoup(this, '皿うどんスープ')">皿うどんスープ</button>
+        <button class="button soup-btn soup-pirikara" onclick="selectSoup(this, 'ピリ辛味噌2辛')">ピリ辛味噌2辛</button>
+        <button class="button soup-btn soup-shoyu" onclick="selectSoup(this, '醤油スープ')">醤油スープ</button>
+        <button class="button soup-btn soup-toripaitan" onclick="selectSoup(this, '鶏白湯スープ')">鶏白湯スープ</button>
+        <button class="button soup-btn soup-miso" onclick="selectSoup(this, '味噌スープ')">味噌スープ</button>
       </div>
     </div>
 
     <div class="category">
       <h3>スープの量を選択</h3>
       <div id="soupAmounts">
-        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '30cc')">30cc</button>
-        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '40cc')">40cc</button>
-        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '60cc')">60cc</button>
-        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '70cc')">70cc</button>
-        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '90cc')">90cc</button>
-        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '1袋')">1袋</button>
-        <button class="button silver-circle" ontouchstart="selectSoupAmount(this, '1ディッシャー')">1ディッシャー</button>
+        <button class="button silver-circle" onclick="selectSoupAmount(this, '30cc')">30cc</button>
+        <button class="button silver-circle" onclick="selectSoupAmount(this, '40cc')">40cc</button>
+        <button class="button silver-circle" onclick="selectSoupAmount(this, '60cc')">60cc</button>
+        <button class="button silver-circle" onclick="selectSoupAmount(this, '70cc')">70cc</button>
+        <button class="button silver-circle" onclick="selectSoupAmount(this, '90cc')">90cc</button>
+        <button class="button silver-circle" onclick="selectSoupAmount(this, '1袋')">1袋</button>
+        <button class="button silver-circle" onclick="selectSoupAmount(this, '1ディッシャー')">1ディッシャー</button>
       </div>
     </div>
 
     <div class="category">
       <h3>お湯の量を選択</h3>
       <div id="waterAmounts">
-        <button class="button blue-circle" ontouchstart="selectWater(this, '100cc')">100cc</button>
-        <button class="button blue-circle" ontouchstart="selectWater(this, '200cc')">200cc</button>
-        <button class="button blue-circle" ontouchstart="selectWater(this, '250cc')">250cc</button>
-        <button class="button blue-circle" ontouchstart="selectWater(this, '300cc')">300cc</button>
-        <button class="button blue-circle" ontouchstart="selectWater(this, '400cc')">400cc</button>
+        <button class="button blue-circle" onclick="selectWater(this, '100cc')">100cc</button>
+        <button class="button blue-circle" onclick="selectWater(this, '200cc')">200cc</button>
+        <button class="button blue-circle" onclick="selectWater(this, '250cc')">250cc</button>
+        <button class="button blue-circle" onclick="selectWater(this, '300cc')">300cc</button>
+        <button class="button blue-circle" onclick="selectWater(this, '400cc')">400cc</button>
       </div>
     </div>
 
     <div class="category">
       <h3>お鍋操作</h3>
-      <button class="button" ontouchstart="selectAction('お鍋に入れる')">お鍋に入れる</button>
-      <button class="button" ontouchstart="selectAction('お鍋上に入れる')">お鍋上に入れる</button>
-      <button class="button" ontouchstart="selectAction('お鍋下に入れる')">お鍋下に入れる</button>
+      <button class="button" onclick="selectAction('お鍋に入れる')">お鍋に入れる</button>
+      <button class="button" onclick="selectAction('お鍋上に入れる')">お鍋上に入れる</button>
+      <button class="button" onclick="selectAction('お鍋下に入れる')">お鍋下に入れる</button>
     </div>
 
     <div class="category">
@@ -128,7 +127,133 @@
   <audio id="selectSound" src="sounds/select.mp3"></audio>
 
   <script>
-    // JavaScript部は変更なし（既にクリック操作とモバイルのタッチが両立）
+    let mode = 'free';
+    let score = 0;
+    let combo = 0;
+    let timer;
+    let selectedSoupList = [];
+    let selectedSoupAmount = '';
+    let selectedWater = '';
+
+    function startGame(selectedMode) {
+      mode = selectedMode;
+      document.querySelector('.game-mode').classList.add('hidden');
+      document.getElementById('game').classList.remove('hidden');
+      score = 0;
+      combo = 0;
+      document.getElementById('score').textContent = score;
+      if (mode === 'timed') {
+        let timeLeft = 60;
+        const timerEl = document.getElementById('timer');
+        timerEl.classList.remove('hidden');
+        timerEl.textContent = `残り時間: ${timeLeft}秒`;
+        timer = setInterval(() => {
+          timeLeft--;
+          timerEl.textContent = `残り時間: ${timeLeft}秒`;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            alert('時間終了！スコア: ' + score);
+            location.reload();
+          }
+        }, 1000);
+      }
+      loadOrder();
+    }
+
+    function clearSelection(category) {
+      category.querySelectorAll('.button').forEach(btn => btn.classList.remove('selected'));
+    }
+
+    function selectSoup(btn, soup) {
+      document.getElementById('selectSound').play();
+      if (!selectedSoupList.includes(soup)) {
+        selectedSoupList.push(soup);
+      }
+      clearSelection(document.getElementById('soupOptions'));
+      btn.classList.add('selected');
+    }
+
+    function selectSoupAmount(btn, amount) {
+      document.getElementById('selectSound').play();
+      selectedSoupAmount = amount;
+      clearSelection(document.getElementById('soupAmounts'));
+      btn.classList.add('selected');
+    }
+
+    function selectWater(btn, amount) {
+      document.getElementById('selectSound').play();
+      selectedWater = amount;
+      clearSelection(document.getElementById('waterAmounts'));
+      btn.classList.add('selected');
+    }
+
+    function selectAction(action) {
+      document.getElementById('selectSound').play();
+      checkAnswer(action);
+    }
+
+    const orderData = {
+      '長崎ちゃんぽん': {soup: ['ちゃんぽんスープ'], amount: '40cc', water: '250cc'},
+      '長崎ちゃんぽん麺少なめ': {soup: ['ちゃんぽんスープ'], amount: '40cc', water: '250cc'},
+      'スモールちゃんぽん': {soup: ['ちゃんぽんスープ'], amount: '30cc', water: '200cc'},
+      '長崎ちゃんぽん麺1.5倍': {soup: ['ちゃんぽんスープ'], amount: '70cc', water: '400cc'},
+      '長崎ちゃんぽん麺2.0倍': {soup: ['ちゃんぽんスープ'], amount: '70cc', water: '400cc'},
+      'スモール皿うどん': {soup: ['皿うどんスープ'], amount: '60cc', water: '200cc'},
+      '長崎皿うどん': {soup: ['皿うどんスープ'], amount: '60cc', water: '200cc'},
+      '長崎皿うどん麺少なめ': {soup: ['皿うどんスープ'], amount: '60cc', water: '200cc'},
+      '長崎皿うどん麺2.0倍': {soup: ['皿うどんスープ'], amount: '90cc', water: '300cc'},
+      '野菜たっぷり皿うどん': {soup: ['皿うどんスープ'], amount: '90cc', water: '300cc'},
+      '野菜たっぷり皿うどん麺少なめ': {soup: ['皿うどんスープ'], amount: '90cc', water: '300cc'},
+      '野菜たっぷり皿うどん麺2.0倍': {soup: ['皿うどんスープ'], amount: '90cc', water: '300cc'},
+      '鶏白湯ちゃんぽん': {soup: ['鶏白湯スープ'], amount: '1袋', water: '250cc'},
+      'しょうゆちゃんぽん': {soup: ['醤油スープ'], amount: '1袋', water: '250cc'},
+      'みそちゃんぽん': {soup: ['味噌スープ'], amount: '1ディッシャー', water: '250cc'},
+      'ピリ辛ちゃんぽん': {soup: ['ちゃんぽんスープ', 'ピリ辛味噌2辛'], amount: '40cc', water: '250cc'}
+    };
+
+    function checkAnswer(action) {
+      const order = document.getElementById('orderDisplay').textContent;
+      const answer = orderData[order];
+      let isCorrect = false;
+      if (answer) {
+       if (order === 'ピリ辛ちゃんぽん') {
+          const requiredSoups = ['ちゃんぽんスープ', 'ピリ辛味噌2辛'];
+          const hasAllSoups = requiredSoups.every(s => selectedSoup.includes(s));
+          isCorrect = hasAllSoups && selectedSoup.length === 2 && selectedSoupAmount === answer.amount && selectedWater === answer.water && action === 'お鍋に入れる';
+        } else {
+          isCorrect = answer.soup.every(s => selectedSoup.includes(s)) && selectedSoup.length === 1 && selectedSoupAmount === answer.amount && selectedWater === answer.water && action === 'お鍋に入れる';
+      }
+      const lastAnswerDisplay = document.getElementById('lastAnswerDisplay');
+      if (isCorrect) {
+        document.getElementById('correctSound').play();
+        score += 10;
+        combo++;
+        if (combo % 3 === 0) {
+          score += 20;
+        }
+        lastAnswerDisplay.textContent = `◯ 正解: ${order}`;
+        lastAnswerDisplay.style.color = 'green';
+      } else {
+        document.getElementById('wrongSound').play();
+        combo = 0;
+        lastAnswerDisplay.textContent = `× 不正解: ${order}`;
+        lastAnswerDisplay.style.color = 'red';
+      }
+      document.getElementById('score').textContent = score;
+      loadOrder();
+    }
+
+    function loadOrder() {
+      const orders = Object.keys(orderData);
+      const order = orders[Math.floor(Math.random() * orders.length)];
+      document.getElementById('orderDisplay').textContent = order;
+      selectedSoupList = [];
+      selectedSoupAmount = '';
+      selectedWater = '';
+      clearSelection(document.getElementById('soupOptions'));
+      clearSelection(document.getElementById('soupAmounts'));
+      clearSelection(document.getElementById('waterAmounts'));
+    }
   </script>
 </body>
 </html>

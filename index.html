@@ -57,11 +57,6 @@
     .game-mode {
       margin: 1rem 0;
     }
-    #lastAnswerDisplay {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      color: #333;
-    }
   </style>
 </head>
 <body>
@@ -118,7 +113,6 @@
     <div class="category">
       <p>スコア: <span id="score">0</span></p>
       <p id="timer" class="hidden"></p>
-      <div id="lastAnswerDisplay"></div>
     </div>
   </div>
 
@@ -131,7 +125,7 @@
     let score = 0;
     let combo = 0;
     let timer;
-    let selectedSoupList = [];
+    let selectedSoup = [];
     let selectedSoupAmount = '';
     let selectedWater = '';
 
@@ -166,11 +160,13 @@
 
     function selectSoup(btn, soup) {
       document.getElementById('selectSound').play();
-      if (!selectedSoupList.includes(soup)) {
-        selectedSoupList.push(soup);
+      if (selectedSoup.includes(soup)) {
+        selectedSoup = selectedSoup.filter(s => s !== soup);
+        btn.classList.remove('selected');
+      } else {
+        selectedSoup.push(soup);
+        btn.classList.add('selected');
       }
-      clearSelection(document.getElementById('soupOptions'));
-      btn.classList.add('selected');
     }
 
     function selectSoupAmount(btn, amount) {
@@ -216,14 +212,14 @@
       const answer = orderData[order];
       let isCorrect = false;
       if (answer) {
-       if (order === 'ピリ辛ちゃんぽん') {
+        if (order === 'ピリ辛ちゃんぽん') {
           const requiredSoups = ['ちゃんぽんスープ', 'ピリ辛味噌2辛'];
           const hasAllSoups = requiredSoups.every(s => selectedSoup.includes(s));
           isCorrect = hasAllSoups && selectedSoup.length === 2 && selectedSoupAmount === answer.amount && selectedWater === answer.water && action === 'お鍋に入れる';
         } else {
           isCorrect = answer.soup.every(s => selectedSoup.includes(s)) && selectedSoup.length === 1 && selectedSoupAmount === answer.amount && selectedWater === answer.water && action === 'お鍋に入れる';
+        }
       }
-      const lastAnswerDisplay = document.getElementById('lastAnswerDisplay');
       if (isCorrect) {
         document.getElementById('correctSound').play();
         score += 10;
@@ -231,13 +227,9 @@
         if (combo % 3 === 0) {
           score += 20;
         }
-        lastAnswerDisplay.textContent = `◯ 正解: ${order}`;
-        lastAnswerDisplay.style.color = 'green';
       } else {
         document.getElementById('wrongSound').play();
         combo = 0;
-        lastAnswerDisplay.textContent = `× 不正解: ${order}`;
-        lastAnswerDisplay.style.color = 'red';
       }
       document.getElementById('score').textContent = score;
       loadOrder();
@@ -247,7 +239,7 @@
       const orders = Object.keys(orderData);
       const order = orders[Math.floor(Math.random() * orders.length)];
       document.getElementById('orderDisplay').textContent = order;
-      selectedSoupList = [];
+      selectedSoup = [];
       selectedSoupAmount = '';
       selectedWater = '';
       clearSelection(document.getElementById('soupOptions'));
